@@ -23,7 +23,7 @@ public class Lesson2 {
         System.out.print(n + " " + m + " " + exercise5(n, m));
 
          */
-exercise8();
+exercise6();
 
     }
 
@@ -134,10 +134,8 @@ exercise8();
         Scanner scanner = new Scanner(file);
 
         while (scanner.hasNextLine()) {
-            Line newLine = new Line();
             String[] tokens = scanner.nextLine().split(", ");
-            newLine.date = tokens[0];
-            newLine.visits = Integer.parseInt(tokens[1]);
+            Line newLine = new Line(tokens[0], Integer.parseInt(tokens[1]));
             visits.add(newLine);
         }
 
@@ -154,8 +152,29 @@ exercise8();
     }
 
     public static class Line {
-        String date;
-        int visits;
+        private String date;
+        private int visits;
+
+        public Line(String date, int visits){
+            this.date = date;
+            this.visits = visits;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public int getVisits() {
+            return visits;
+        }
+
+        public void setVisits(int visits) {
+            this.visits = visits;
+        }
     }
 
 
