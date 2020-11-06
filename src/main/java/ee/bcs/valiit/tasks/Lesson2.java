@@ -23,7 +23,7 @@ public class Lesson2 {
         System.out.print(n + " " + m + " " + exercise5(n, m));
 
          */
-exercise6();
+        exercise9();
 
     }
 
@@ -222,10 +222,23 @@ exercise6();
         System.out.println(sum);
     }
 
-    public static void exercise9() {
+    public static void exercise9() throws FileNotFoundException {
         /* TODO
         Sama mis eelmises ülesandes aga ära kasuta BigInt ega BigDecimal klassi
          */
+        List <String> nums= new ArrayList<>();
+        File file = new File("nums.txt");
+        Scanner scanner = new Scanner(file);
+
+        while(scanner.hasNextLine()){
+            String s = scanner.nextLine();
+            nums.add(s);
+        }
+
+        for (String list : nums){
+            System.out.println(list);
+        }
+
     }
 
 }

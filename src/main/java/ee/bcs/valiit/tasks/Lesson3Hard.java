@@ -12,7 +12,9 @@ public class Lesson3Hard {
         //System.out.println(evenFibonacci(10));
         //randomGame();
 
-        System.out.println(morseCode("hello world"));
+        //System.out.println(morseCode("hello world"));
+
+
     }
 
     public static int evenFibonacci(int x) {
