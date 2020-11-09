@@ -13,7 +13,7 @@ import java.util.Map;
 public class BankController {
 
     Map<String, BigDecimal> map = new HashMap<>();
-    List<Client> clients = new ArrayList<>();
+    Map<String, Client> clients = new HashMap<>();
 
     // show created accounts
     @GetMapping("account")
@@ -62,16 +62,19 @@ public class BankController {
     }
     // Raskem
     // createClient(firstName lastName, ....)
+
     @PostMapping("client/create")
     public void createClient(@RequestBody Client client){
-        Client client1 = new Client(client.getFirstName(), client.getLastName(), client.getAccount());
-        clients.add(client1);
+        Client client1 = new Client(client.getId(), client.getFirstName(), client.getLastName());
+        clients.put(client1.getId(), client1);
     }
 
     @GetMapping("client")
-    public List<Client> clients(){
+    public Map<String,Client> getClients(){
         return clients;
     }
     // muuta createAccount (clientId, accountNr)
+
+
     // getBalanceHistory(accountNr)
 }
