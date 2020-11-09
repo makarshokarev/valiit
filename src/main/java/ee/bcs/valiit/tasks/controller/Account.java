@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 public class Account {
     private String accountNr;
     private BigDecimal money = new BigDecimal(0);
-
+    private String fromAccount;
+    private String toAccount;
 
     public BigDecimal deposit(BigDecimal x){
         money = money.add(x);
@@ -16,6 +17,7 @@ public class Account {
         money = x.subtract(money);
         return money;
     }
+
 
     public String getAccountNr() {
         return accountNr;
@@ -33,5 +35,19 @@ public class Account {
         this.money = money;
     }
 
+    public String getFromAccount() {
+        return fromAccount;
+    }
 
+    public void setFromAccount(String fromAccount) {
+        this.fromAccount = fromAccount;
+    }
+
+    public String getToAccount() {
+        return toAccount;
+    }
+
+    public void setToAccount(String toAccount) {
+        this.toAccount = toAccount;
+    }
 }
