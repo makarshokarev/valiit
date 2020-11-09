@@ -21,12 +21,12 @@ public class BankController {
         return map;
     }
 
-    // createAccount (accountNr)
-    @PostMapping("account/create")
-    public String createAccount(@RequestBody Account account){
-        map.put(account.getAccountNr(), account.getMoney());
-        return "Created new account " + account.getAccountNr();
-    }
+//    // createAccount (accountNr)
+//    @PostMapping("account/create")
+//    public String createAccount(@RequestBody Account account){
+//        map.put(account.getAccountNr(), account.getMoney());
+//        return "Created new account " + account.getAccountNr();
+//    }
 
     // depositMoney (accountNr, money)
     @PutMapping("account/deposit")
@@ -74,7 +74,13 @@ public class BankController {
         return clients;
     }
     // muuta createAccount (clientId, accountNr)
-
+    // createAccount (accountNr)
+    @PostMapping("account/create")
+    public void createAccount(@RequestBody Account account){
+        Account account1 = new Account(account.getId(), account.getAccountNr(), BigDecimal.ZERO);
+        Client a = clients.get(account.getId());
+        a.account.add(account1);
+    }
 
     // getBalanceHistory(accountNr)
 }
