@@ -46,13 +46,13 @@ public class BankController {
 
     // transferMoney (fromAccount, toAccount, money)
     @PutMapping("account/transfer")
-    public String transferMoney(@RequestBody Account account){
-        BigDecimal newBalance1 = map.get(account.getFromAccount()).subtract(account.getMoney());
-        BigDecimal newBalance2 = map.get(account.getToAccount()).add(account.getMoney());
-        map.put(account.getFromAccount(), newBalance1);
-        map.put(account.getToAccount(), newBalance2);
-        return "Account: " + account.getFromAccount() + " Balance: " + newBalance1 + ", " +
-                "Account: " + account.getToAccount() + " Balance: " + newBalance2;
+    public void transferMoney(@RequestBody AccountBalance transfer){
+        BigDecimal newBalance1 = map.get(transfer.getFromAccount()).subtract(transfer.getMoney());
+        BigDecimal newBalance2 = map.get(transfer.getToAccount()).add(transfer.getMoney());
+        map.put(transfer.getFromAccount(), newBalance1);
+        map.put(transfer.getToAccount(), newBalance2);
+//        return "Account: " + account.getFromAccount() + " Balance: " + newBalance1 + ", " +
+//                "Account: " + account.getToAccount() + " Balance: " + newBalance2;
     }
 
     // getAccountBalance (accountNr)
@@ -64,7 +64,8 @@ public class BankController {
     // createClient(firstName lastName, ....)
     @PostMapping("client/create")
     public void createClient(@RequestBody Client client){
-        clients.add(new Client(client.getFirstName(), client.getLastName(), client.getAccount()));
+        Client client1 = new Client(client.getFirstName(), client.getLastName(), client.getAccount());
+        clients.add(client1);
     }
 
     @GetMapping("client")
