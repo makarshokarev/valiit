@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks.controller;
+package ee.bcs.valiit.tasks.bank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ public class Client {
     private String id;
     private String firstName;
     private String lastName;
-    public List<Account> account = new ArrayList<>();
+    public List<Account> clientAccounts = new ArrayList<>();
 
     public Client(String id, String firstName, String lastName) {
         this.id = id;

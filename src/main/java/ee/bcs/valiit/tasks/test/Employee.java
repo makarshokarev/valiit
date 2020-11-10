@@ -1,7 +1,4 @@
-package ee.bcs.valiit.tasks.controller;
-
-import java.util.ArrayList;
-import java.util.List;
+package ee.bcs.valiit.tasks.test;
 
 public class Employee {
     private String FirstName;

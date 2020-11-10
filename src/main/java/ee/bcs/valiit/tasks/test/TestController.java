@@ -1,5 +1,6 @@
-package ee.bcs.valiit.tasks.controller;
+package ee.bcs.valiit.tasks.test;
 
+import ee.bcs.valiit.tasks.test.Employee;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

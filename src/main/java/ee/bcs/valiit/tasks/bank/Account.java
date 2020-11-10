@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks.controller;
+package ee.bcs.valiit.tasks.bank;
 
 import java.math.BigDecimal;
 
@@ -7,15 +7,6 @@ public class Account {
     private String accountNr;
     private BigDecimal money = new BigDecimal(0);
 
-    public BigDecimal deposit(BigDecimal x){
-        money = money.add(x);
-        return money;
-    }
-
-    public BigDecimal withdraw(BigDecimal x){
-        money = x.subtract(money);
-        return money;
-    }
 
     public Account(String id, String accountNr, BigDecimal money) {
         this.id = id;
