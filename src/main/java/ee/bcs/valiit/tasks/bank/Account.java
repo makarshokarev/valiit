@@ -5,9 +5,12 @@ import java.math.BigDecimal;
 public class Account {
     private String id;
     private String accountNr;
-    private BigDecimal money = new BigDecimal(0);
+    private BigDecimal money;
+    private int userId;
 
+    public Account(){
 
+    }
     public Account(String id, String accountNr, BigDecimal money) {
         this.id = id;
         this.accountNr = accountNr;
@@ -36,5 +39,13 @@ public class Account {
 
     public void setMoney(BigDecimal money) {
         this.money = money;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

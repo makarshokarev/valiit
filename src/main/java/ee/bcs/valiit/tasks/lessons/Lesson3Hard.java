@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks;
+package ee.bcs.valiit.tasks.lessons;
 
 import java.sql.SQLOutput;
 import java.util.HashMap;

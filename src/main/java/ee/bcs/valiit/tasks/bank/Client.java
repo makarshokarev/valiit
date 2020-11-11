@@ -9,6 +9,9 @@ public class Client {
     private String lastName;
     public List<Account> clientAccounts = new ArrayList<>();
 
+    public Client(){
+
+    }
     public Client(String id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
@@ -23,13 +26,6 @@ public class Client {
         this.id = id;
     }
 
-//    public List<Account> getAccount() {
-//        return account;
-//    }
-//
-//    public void setAccount(List<Account> account) {
-//        this.account = account;
-//    }
 
     public String getFirstName() {
         return firstName;
