@@ -1,28 +1,30 @@
-package ee.bcs.valiit.tasks.bank;
+package ee.bcs.valiit.tasks.bank.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
-    private String id;
+    private int id;
     private String firstName;
     private String lastName;
-    public List<Account> clientAccounts = new ArrayList<>();
+    public List<String> clientAccounts = new ArrayList<>();
 
-    public Client(){
-
-    }
-    public Client(String id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Client() {
     }
 
-    public String getId() {
+    public List<String> getClientAccounts() {
+        return clientAccounts;
+    }
+
+    public void setClientAccounts(List<String> clientAccounts) {
+        this.clientAccounts = clientAccounts;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

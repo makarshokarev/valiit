@@ -1,54 +1,59 @@
 package ee.bcs.valiit.tasks.bank.Controller;
 
-import ee.bcs.valiit.tasks.bank.Account;
-import ee.bcs.valiit.tasks.bank.AccountBalance;
+import ee.bcs.valiit.tasks.bank.Objects.*;
+import ee.bcs.valiit.tasks.bank.Repository2.Account;
+import ee.bcs.valiit.tasks.bank.Repository2.AccountRepository2;
 import ee.bcs.valiit.tasks.bank.Service.AccountService;
-import ee.bcs.valiit.tasks.bank.Client;
 import ee.bcs.valiit.tasks.bank.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RequestMapping("bank")
 @RestController
 public class BankController {
 
-    @Autowired
-            private AccountService accountService;
 
     @Autowired
-            private ClientService clientService;
+    private AccountService accountService;
 
     @Autowired
-            private NamedParameterJdbcTemplate jdbcTemplate;
+    private ClientService clientService;
 
-//    Map<String, Account> map = new HashMap<>();
-//    Map<String, Client> clients = new HashMap<>();
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private AccountRepository2 accountRepository2;
+
+    @GetMapping("hibernate-test")
+    public void getAllAccount(){
+//        Account obj = new Account();
+//        obj.setAccountNr("EE999");
+//        obj.setBalance(BigDecimal.valueOf(500));
+//        obj.setClientId(2l);
+        accountRepository2.deleteById(14l);
+    }
 
     // depositMoney (accountNr, money)
     @PutMapping("account/deposit")
-    public void depositMoney(@RequestBody Account account) {
-        accountService.depositMoney(account);
+    public void depositMoney(@RequestBody ee.bcs.valiit.tasks.bank.Objects.Account account) {
+        accountService.depositMoney(account.getAccountNr(), account.getMoney());
     }
 
     // withdrawMoney (accountNr, money)
     @PutMapping("account/withdraw")
-    public void withdrawMoney(@RequestBody Account account) {
-        accountService.withdrawMoney(account);
+    public void withdrawMoney(@RequestBody ee.bcs.valiit.tasks.bank.Objects.Account account) {
+        accountService.withdrawMoney(account.getAccountNr(), account.getMoney());
     }
 
     // transferMoney (fromAccount, toAccount, money)
     @PutMapping("account/transfer")
     public void transferMoney(@RequestBody AccountBalance transfer) {
-        accountService.transferMoney(transfer);
-//        Account fromAccount = map.get(transfer.getFromAccount());
-//        Account toAccount = map.get(transfer.getToAccount());
-//        BigDecimal newBalance1 = fromAccount.getMoney().subtract(transfer.getMoney());
-//        BigDecimal newBalance2 = toAccount.getMoney().add(transfer.getMoney());
-//        fromAccount.setMoney(newBalance1);
-//        toAccount.setMoney(newBalance2);
+        accountService.transferMoney(transfer.getFromAccount(), transfer.getToAccount(), transfer.getMoney());
     }
 
     // getAccountBalance (accountNr)
@@ -62,13 +67,14 @@ public class BankController {
     // createClient(firstName lastName, ....)
 
     @PostMapping("client/create")
-    public void createClient(@RequestBody Client client) {
-        clientService.createClient(client);
+    public void createClient(@RequestBody CreateClient createClient) {
+        clientService.createClient(createClient.getFirstName(), createClient.getLastName());
     }
 
     @PostMapping("account/create")
-    public void createAccount(@RequestBody Account account) {
-        accountService.createAccount(account);
+    public void createAccount(@RequestBody CreateAccount createAccount) {
+
+        accountService.createAccount(createAccount.getAccountNr(), createAccount.getClientId());
     }
 
     @GetMapping("client")
@@ -78,10 +84,16 @@ public class BankController {
     }
 
     @GetMapping("account")
-    public List<Account> getAccount() {
-        List<Account> result = accountService.getAccout();
+    public List<ee.bcs.valiit.tasks.bank.Objects.Account> getAccount() {
+        List<ee.bcs.valiit.tasks.bank.Objects.Account> result = accountService.getAccout();
         return result;
     }
+
+//    @GetMapping("test")
+//    public  List<AccountForClient> getAccountRepo(){
+//        List<AccountForClient> result = accountService.getAccountRepo();
+//        return result;
+//    }
 
     // getBalanceHistory(accountNr)
 }

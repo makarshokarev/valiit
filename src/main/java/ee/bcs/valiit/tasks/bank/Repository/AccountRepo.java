@@ -1,8 +1,11 @@
 package ee.bcs.valiit.tasks.bank.Repository;
 
-import ee.bcs.valiit.tasks.bank.Account;
-import ee.bcs.valiit.tasks.bank.AccountBalance;
+import ee.bcs.valiit.tasks.bank.Objects.Account;
+import ee.bcs.valiit.tasks.bank.Objects.AccountForClient;
+import ee.bcs.valiit.tasks.bank.Objects.Client;
 import ee.bcs.valiit.tasks.bank.RowMapper.AccountRowMapper;
+import ee.bcs.valiit.tasks.bank.RowMapper.ClientRowMapper;
+import ee.bcs.valiit.tasks.bank.RowMapper.GetAccountRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -18,87 +21,67 @@ public class AccountRepo {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public BigDecimal selectId(Account account){
+    public BigDecimal selectId(int userId) {
         Map<String, Object> paramMap = new HashMap<>();
         String sql1 = "SELECT id FROM customer WHERE id = :m1";
-        paramMap.put("m1", account.getUserId());
+        paramMap.put("m1", userId);
         BigDecimal clientId = jdbcTemplate.queryForObject(sql1, paramMap, BigDecimal.class);
         return clientId;
     }
 
-    public void createAccount(Account account){
+    public void createAccount(String accountNr, int clientId) {
         Map<String, Object> paramMap = new HashMap<>();
         String sql = "INSERT INTO account (account_nr, balance, client_id) VALUES (:m1, :m2, :m3)";
-        paramMap.put("m1", account.getAccountNr());
+        paramMap.put("m1", accountNr);
         paramMap.put("m2", BigDecimal.ZERO);
-        paramMap.put("m3", selectId(account));
+        paramMap.put("m3", selectId(clientId));
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public List<Account> getAccount(){
+    public List<Account> getAccount() {
         String sql = "SELECT * FROM account";
         Map<String, Object> paramMap = new HashMap<>();
         List<Account> result = jdbcTemplate.query(sql, paramMap, new AccountRowMapper());
         return result;
     }
 
-    public BigDecimal selectBalance(Account account){
+    public Account getOneAccount(int id) {
+        Map<String, Object> pamaMap = new HashMap<>();
+        String sql = "SELECT account_nr FROM account WHERE client_id = :m1";
+        pamaMap.put("m1", id);
+        Account account1 = jdbcTemplate.queryForObject(sql, pamaMap, Account.class);
+        return account1;
+    }
+
+    public BigDecimal getBalance(String accountNr) {
         Map<String, Object> paramMap = new HashMap<>();
         String sql1 = "SELECT balance FROM account WHERE account_nr = :m1";
-        paramMap.put("m1", account.getAccountNr());
+        paramMap.put("m1", accountNr);
         BigDecimal balance = jdbcTemplate.queryForObject(sql1, paramMap, BigDecimal.class);
         return balance;
     }
 
-    public void deposit(Account account){
+    public void setBalance(String accountNr, BigDecimal newBalance) {
         Map<String, Object> paramMap = new HashMap<>();
-        BigDecimal newBalance = account.getMoney().add(selectBalance(account));
-        String sql = "UPDATE account SET balance = :m1 WHERE account_nr = :m2";
+        String sql2 = "UPDATE account SET balance = :m1 WHERE account_nr = :m2";
         paramMap.put("m1", newBalance);
-        paramMap.put("m2", account.getAccountNr());
-        jdbcTemplate.update(sql, paramMap);
-    }
-
-    public void withdraw(Account account){
-        Map<String, Object> paramMap = new HashMap<>();
-        BigDecimal newBalance = selectBalance(account).subtract(account.getMoney());
-        String sql2 = "UPDATE account SET balance = :m2 WHERE account_nr = :m3";
-        paramMap.put("m2", newBalance);
-        paramMap.put("m3", account.getAccountNr());
+        paramMap.put("m2", accountNr);
         jdbcTemplate.update(sql2, paramMap);
     }
 
-    public BigDecimal fromBalance(AccountBalance transfer){
-        Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT balance FROM account WHERE account_nr = :m1";
-        paramMap.put("m1", transfer.getFromAccount());
-        BigDecimal fromBalance = jdbcTemplate.queryForObject(sql, paramMap, BigDecimal.class);
-        return fromBalance;
-    }
+//    public List<AccountForClient> getAccountRepo(){
+//        String sql = "SELECT account_nr FROM account a JOIN customer c ON a.client_id = c.id";
+//        Map<String, Object> paramMap = new HashMap<>();
+////        List<AccountForClient> result = jdbcTemplate.query(sql, paramMap, new GetAccountRowMapper());
+//        List<String> result = jdbcTemplate.queryForList(sql, paramMap, String.class);
+//        return result;
+//    }
 
-    public BigDecimal toBalance(AccountBalance transfer){
+    public List<String> getAccountByClient(int id) {
+        String sql = "SELECT account_nr FROM account a JOIN customer c ON a.client_id = c.id";
         Map<String, Object> paramMap = new HashMap<>();
-        String sql = "SELECT balance FROM account WHERE account_nr = :m1";
-        paramMap.put("m1", transfer.getToAccount());
-        BigDecimal toBalance = jdbcTemplate.queryForObject(sql, paramMap, BigDecimal.class);
-        return toBalance;
-    }
-
-    public void newFromBalance(AccountBalance transfer){
-        Map<String, Object> paramMap = new HashMap<>();
-        BigDecimal newBalance = toBalance(transfer).add(transfer.getMoney());
-        String sql = "UPDATE account SET balance = :m2 WHERE account_nr = :m1";
-        paramMap.put("m1", transfer.getToAccount());
-        paramMap.put("m2", newBalance);
-        jdbcTemplate.update(sql, paramMap);
-    }
-
-    public void newToBalance(AccountBalance transfer){
-        Map<String, Object> paramMap = new HashMap<>();
-        BigDecimal newBalance = fromBalance(transfer).subtract(transfer.getMoney());
-        String sql = "UPDATE account SET balance = :m2 WHERE account_nr = :m1";
-        paramMap.put("m1", transfer.getToAccount());
-        paramMap.put("m2", newBalance);
-        jdbcTemplate.update(sql, paramMap);
+//        List<AccountForClient> result = jdbcTemplate.query(sql, paramMap, new GetAccountRowMapper());
+        List<String> result = jdbcTemplate.queryForList(sql, paramMap, String.class);
+        return result;
     }
 }

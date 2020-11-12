@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks.bank;
+package ee.bcs.valiit.tasks.bank.Objects;
 
 import java.math.BigDecimal;
 

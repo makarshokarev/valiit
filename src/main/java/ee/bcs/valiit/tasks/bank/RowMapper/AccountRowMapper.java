@@ -1,6 +1,6 @@
 package ee.bcs.valiit.tasks.bank.RowMapper;
 
-import ee.bcs.valiit.tasks.bank.Account;
+import ee.bcs.valiit.tasks.bank.Objects.Account;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

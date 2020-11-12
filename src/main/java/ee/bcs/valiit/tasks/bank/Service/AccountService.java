@@ -1,20 +1,20 @@
 package ee.bcs.valiit.tasks.bank.Service;
 
-import ee.bcs.valiit.tasks.bank.Account;
-import ee.bcs.valiit.tasks.bank.AccountBalance;
+import ee.bcs.valiit.tasks.bank.Objects.Account;
+import ee.bcs.valiit.tasks.bank.Objects.AccountForClient;
 import ee.bcs.valiit.tasks.bank.Repository.AccountRepo;
+import ee.bcs.valiit.tasks.bank.Repository2.AccountRepository2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AccountService {
+
 
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
@@ -22,8 +22,9 @@ public class AccountService {
     @Autowired
     private AccountRepo accountRepo;
 
-    public void createAccount(Account account) {
-        accountRepo.createAccount(account);
+
+    public void createAccount(String accountNr, int userId) {
+        accountRepo.createAccount(accountNr, userId);
     }
 
     public List<Account> getAccout() {
@@ -31,31 +32,34 @@ public class AccountService {
         return result;
     }
 
-    public void depositMoney(Account account) {
-        accountRepo.deposit(account);
+    public void depositMoney(String accountNr, BigDecimal money) {
+        BigDecimal getBalance = accountRepo.getBalance(accountNr);
+        BigDecimal newBalance = getBalance.add(money);
+        accountRepo.setBalance(accountNr, newBalance);
     }
 
-    public void withdrawMoney(Account account) {
-        accountRepo.withdraw(account);
+    public void withdrawMoney(String accountNr, BigDecimal money) {
+        BigDecimal getBalance = accountRepo.getBalance(accountNr);
+        BigDecimal newBalance = getBalance.subtract(money);
+        accountRepo.setBalance(accountNr, newBalance);
     }
 
-    public void transferMoney(AccountBalance transfer) {
-        accountRepo.newFromBalance(transfer);
-        accountRepo.newToBalance(transfer);
-//        Map<String, Object> paramMap = new HashMap<>();
-//        String sql = "SELECT balance FROM account WHERE account_nr = :m1";
-//        String sql2 = "SELECT balance FROM account WHERE account_nr = :m2";
-//        paramMap.put("m2", transfer.getFromAccount());
-//        paramMap.put("m1", transfer.getToAccount());
-//        BigDecimal oldBalance1 = jdbcTemplate.queryForObject(sql, paramMap, BigDecimal.class);
-//        BigDecimal oldBalance2 = jdbcTemplate.queryForObject(sql2, paramMap, BigDecimal.class);
-//        BigDecimal newBalance1 = oldBalance1.add(transfer.getMoney());
-//        BigDecimal newBalance2 = oldBalance2.subtract(transfer.getMoney());
-//        String sql3 = "UPDATE account SET balance = :m3 WHERE account_nr = :m1";
-//        String sql4 = "UPDATE account SET balance = :m4 WHERE account_nr = :m2";
-//        paramMap.put("m3", newBalance1);
-//        paramMap.put("m4", newBalance2);
-//        jdbcTemplate.update(sql3, paramMap);
-//        jdbcTemplate.update(sql4, paramMap);
+    public void transferMoney(String fromAccount, String toAccount, BigDecimal money) {
+        BigDecimal fromBalance = accountRepo.getBalance(fromAccount);
+        BigDecimal toBalance = accountRepo.getBalance(toAccount);
+
+        BigDecimal newBalanceFrom = fromBalance.subtract(money);
+        BigDecimal newBalanceTo = toBalance.add(money);
+
+        accountRepo.setBalance(fromAccount, newBalanceFrom);
+        accountRepo.setBalance(toAccount, newBalanceTo);
     }
+
+//    public List<AccountForClient> getAccountRepo(){
+//        List<AccountForClient> list = accountRepo.getAccountRepo();
+//        return list;
+//    }
+
+
 }
+

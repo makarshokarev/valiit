@@ -1,6 +1,6 @@
 package ee.bcs.valiit.tasks.bank.Repository;
 
-import ee.bcs.valiit.tasks.bank.Client;
+import ee.bcs.valiit.tasks.bank.Objects.Client;
 import ee.bcs.valiit.tasks.bank.RowMapper.ClientRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,11 +16,11 @@ public class ClientRepo {
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void createClient(Client client){
+    public void createClient(String firstName, String lastName){
         String sql = "INSERT INTO customer (first_name, last_name) VALUES (:m1, :m2)";
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("m1", client.getFirstName());
-        paramMap.put("m2", client.getLastName());
+        paramMap.put("m1", firstName);
+        paramMap.put("m2", lastName);
         jdbcTemplate.update(sql, paramMap);
     }
 
@@ -30,4 +30,7 @@ public class ClientRepo {
         List<Client> result = jdbcTemplate.query(sql, paramMap, new ClientRowMapper());
         return result;
     }
+
+
+
 }

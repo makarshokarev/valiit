@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks.bank;
+package ee.bcs.valiit.tasks.bank.Objects;
 
 import java.math.BigDecimal;
 
@@ -8,14 +8,6 @@ public class Account {
     private BigDecimal money;
     private int userId;
 
-    public Account(){
-
-    }
-    public Account(String id, String accountNr, BigDecimal money) {
-        this.id = id;
-        this.accountNr = accountNr;
-        this.money = money;
-    }
 
     public String getId() {
         return id;
