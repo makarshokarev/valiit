@@ -1,6 +1,6 @@
 package ee.bcs.valiit.tasks.bank.Service;
 
-import ee.bcs.valiit.tasks.bank.Objects.Account;
+
 import ee.bcs.valiit.tasks.bank.Objects.Client;
 import ee.bcs.valiit.tasks.bank.Repository.AccountRepo;
 import ee.bcs.valiit.tasks.bank.Repository.ClientRepo;
@@ -20,7 +20,6 @@ public class ClientService {
 
     public void createClient(String firstName, String lastName) {
         clientRepo.createClient(firstName, lastName);
-
     }
 
     public List<Client> getClient() {

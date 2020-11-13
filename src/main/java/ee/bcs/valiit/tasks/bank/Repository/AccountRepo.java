@@ -1,11 +1,7 @@
 package ee.bcs.valiit.tasks.bank.Repository;
 
 import ee.bcs.valiit.tasks.bank.Objects.Account;
-import ee.bcs.valiit.tasks.bank.Objects.AccountForClient;
-import ee.bcs.valiit.tasks.bank.Objects.Client;
 import ee.bcs.valiit.tasks.bank.RowMapper.AccountRowMapper;
-import ee.bcs.valiit.tasks.bank.RowMapper.ClientRowMapper;
-import ee.bcs.valiit.tasks.bank.RowMapper.GetAccountRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -45,13 +41,6 @@ public class AccountRepo {
         return result;
     }
 
-    public Account getOneAccount(int id) {
-        Map<String, Object> pamaMap = new HashMap<>();
-        String sql = "SELECT account_nr FROM account WHERE client_id = :m1";
-        pamaMap.put("m1", id);
-        Account account1 = jdbcTemplate.queryForObject(sql, pamaMap, Account.class);
-        return account1;
-    }
 
     public BigDecimal getBalance(String accountNr) {
         Map<String, Object> paramMap = new HashMap<>();
@@ -78,9 +67,10 @@ public class AccountRepo {
 //    }
 
     public List<String> getAccountByClient(int id) {
-        String sql = "SELECT account_nr FROM account a JOIN customer c ON a.client_id = c.id";
+        String sql = "SELECT account_nr FROM account WHERE client_id = :m1";
+        //String sql = "SELECT account_nr FROM account a JOIN customer c ON a.client_id = c.id";
         Map<String, Object> paramMap = new HashMap<>();
-//        List<AccountForClient> result = jdbcTemplate.query(sql, paramMap, new GetAccountRowMapper());
+        paramMap.put("m1", id);
         List<String> result = jdbcTemplate.queryForList(sql, paramMap, String.class);
         return result;
     }

@@ -27,7 +27,7 @@ public class AccountService {
         accountRepo.createAccount(accountNr, userId);
     }
 
-    public List<Account> getAccout() {
+    public List<Account> getAccount() {
         List<Account> result = accountRepo.getAccount();
         return result;
     }

@@ -1,7 +1,6 @@
 package ee.bcs.valiit.tasks.bank.Controller;
 
 import ee.bcs.valiit.tasks.bank.Objects.*;
-import ee.bcs.valiit.tasks.bank.Repository2.Account;
 import ee.bcs.valiit.tasks.bank.Repository2.AccountRepository2;
 import ee.bcs.valiit.tasks.bank.Service.AccountService;
 import ee.bcs.valiit.tasks.bank.Service.ClientService;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RequestMapping("bank")
@@ -85,7 +83,7 @@ public class BankController {
 
     @GetMapping("account")
     public List<ee.bcs.valiit.tasks.bank.Objects.Account> getAccount() {
-        List<ee.bcs.valiit.tasks.bank.Objects.Account> result = accountService.getAccout();
+        List<ee.bcs.valiit.tasks.bank.Objects.Account> result = accountService.getAccount();
         return result;
     }
 
