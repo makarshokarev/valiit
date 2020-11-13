@@ -17,16 +17,29 @@
             </column>
         </createTable>
         <createTable  tableName="account">
-            <column  name="id"  type="bigint" autoIncrement="true">
+            <column name="id"  type="bigint" autoIncrement="true">
                 <constraints  nullable="false"  primaryKey="true"/>
             </column>
-            <column  name="account_nr"  type="text">
-                <constraints  nullable="false"/>
+            <column name="account_nr"  type="text">
+                <constraints  nullable="false" primaryKey="true"/>
             </column>
-            <column  name="balance"  type="bigint"/>
+            <column name="balance"  type="bigint"/>
             <column name="client_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_account_customer" references="customer(id)"/>
             </column>
+        </createTable>
+        <createTable tableName="history">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="from_account_nr" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="to_account_nr" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="operation" type="text"/>
+            <column name="money" type="bigint"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

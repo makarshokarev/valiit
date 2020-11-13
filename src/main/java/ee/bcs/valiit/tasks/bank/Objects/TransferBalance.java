@@ -2,7 +2,7 @@ package ee.bcs.valiit.tasks.bank.Objects;
 
 import java.math.BigDecimal;
 
-public class AccountBalance {
+public class TransferBalance {
     private BigDecimal money = new BigDecimal(0);
     private String fromAccount;
     private String toAccount;

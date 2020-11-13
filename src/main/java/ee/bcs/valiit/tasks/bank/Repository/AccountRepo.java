@@ -34,13 +34,12 @@ public class AccountRepo {
         jdbcTemplate.update(sql, paramMap);
     }
 
-    public List<Account> getAccount() {
+    public List<Account> getAccounts() {
         String sql = "SELECT * FROM account";
         Map<String, Object> paramMap = new HashMap<>();
         List<Account> result = jdbcTemplate.query(sql, paramMap, new AccountRowMapper());
         return result;
     }
-
 
     public BigDecimal getBalance(String accountNr) {
         Map<String, Object> paramMap = new HashMap<>();
@@ -58,13 +57,6 @@ public class AccountRepo {
         jdbcTemplate.update(sql2, paramMap);
     }
 
-//    public List<AccountForClient> getAccountRepo(){
-//        String sql = "SELECT account_nr FROM account a JOIN customer c ON a.client_id = c.id";
-//        Map<String, Object> paramMap = new HashMap<>();
-////        List<AccountForClient> result = jdbcTemplate.query(sql, paramMap, new GetAccountRowMapper());
-//        List<String> result = jdbcTemplate.queryForList(sql, paramMap, String.class);
-//        return result;
-//    }
 
     public List<String> getAccountByClient(int id) {
         String sql = "SELECT account_nr FROM account WHERE client_id = :m1";
