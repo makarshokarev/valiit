@@ -2,7 +2,6 @@ package ee.bcs.valiit.tasks.bank.Service;
 
 import ee.bcs.valiit.tasks.bank.Exception.ApplicationException;
 import ee.bcs.valiit.tasks.bank.Objects.Account;
-import ee.bcs.valiit.tasks.bank.Objects.History;
 import ee.bcs.valiit.tasks.bank.Repository.AccountRepo;
 import ee.bcs.valiit.tasks.bank.Repository.HistoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class AccountService {
     public void createAccount(String accountNr, int userId) {
         try {
             accountRepo.createAccount(accountNr, userId);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ApplicationException("Wrong input!");
         }
     }
@@ -34,11 +33,11 @@ public class AccountService {
         return result;
     }
 
-    public BigDecimal balance(String accountNr){
+    public BigDecimal balance(String accountNr) {
         try {
             BigDecimal getBalance = accountRepo.getBalance(accountNr);
             return getBalance;
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ApplicationException("Wrong account number!");
         }
     }
@@ -48,7 +47,7 @@ public class AccountService {
             BigDecimal getBalance = accountRepo.getBalance(accountNr);
             BigDecimal newBalance = getBalance.add(money);
             accountRepo.setBalance(accountNr, newBalance);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ApplicationException("Wrong input!");
         }
     }
@@ -58,7 +57,7 @@ public class AccountService {
             BigDecimal getBalance = accountRepo.getBalance(accountNr);
             BigDecimal newBalance = getBalance.subtract(money);
             accountRepo.setBalance(accountNr, newBalance);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ApplicationException("Wrong input!");
         }
     }

@@ -11,6 +11,7 @@ public class HistoryRowMapper implements RowMapper<History> {
     public History mapRow(ResultSet resultSet, int i) throws SQLException {
         History history = new History();
         history.setFromAccountNr(resultSet.getString("from_account_nr"));
+        history.setToAccountNr(resultSet.getString("to_account_nr"));
         history.setOperation(resultSet.getString("operation"));
         history.setMoney(resultSet.getBigDecimal("money"));
         return history;

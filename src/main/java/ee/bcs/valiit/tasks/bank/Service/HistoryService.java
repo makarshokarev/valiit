@@ -1,8 +1,6 @@
 package ee.bcs.valiit.tasks.bank.Service;
 
 import ee.bcs.valiit.tasks.bank.Objects.History;
-import ee.bcs.valiit.tasks.bank.Repository.AccountRepo;
-import ee.bcs.valiit.tasks.bank.Repository.ClientRepo;
 import ee.bcs.valiit.tasks.bank.Repository.HistoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +18,21 @@ public class HistoryService {
         historyRepo.createHistory(accountNr);
     }
 
-//    public void updateHistory(String accountNr, BigDecimal money) {
-//        historyRepo.updateHistory(accountNr, money);
-//    }
+    public void depositeHistory(String fromAccountNr, BigDecimal money) {
+        historyRepo.updateHistory(fromAccountNr, null, money, "deposit");
+    }
 
-//    public List<History> getHistory(){
-//        List<History> result = historyRepo.createHistory();
-//        return result;
-//    }
+    public void withdrawHistory(String fromAccountNr, BigDecimal money) {
+        BigDecimal newMoney = BigDecimal.ZERO.subtract(money);
+        historyRepo.updateHistory(fromAccountNr, null, newMoney, "withdraw");
+    }
+
+    public void transferHistory(String fromAccount, String toAccount, BigDecimal money){
+        historyRepo.updateHistory(fromAccount, toAccount, money, "transfer");
+    }
+
+    public List<History> getHistory(){
+        List<History> result = historyRepo.getHistory();
+        return result;
+    }
 }

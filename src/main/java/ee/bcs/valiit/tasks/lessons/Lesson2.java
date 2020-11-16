@@ -23,7 +23,7 @@ public class Lesson2 {
         System.out.print(n + " " + m + " " + exercise5(n, m));
 
          */
-        exercise9();
+        exercise3(7,7);
 
     }
 
