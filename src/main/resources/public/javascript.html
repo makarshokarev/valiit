@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="myButton">Press me!</button>
+    <table id="myTable"></table>
+    <script>
+        let myButton = document.getElementById("myButton")
+        myButton.onclick = function (){
+            let myTable = document.getElementById("myTable");
+            let rowElement = document.createElement("tr");
+            let cellElement = document.createElement("td");
+            rowElement.append(cellElement);
+            cellElement.innerText="text";
+            myTable.append(rowElement);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+body {
+    background-color : #f3f3d3;
+}
+h1 {
+    font-family: Copperplate Gothic;
+    color : #071726;
+}
+h2{
+    font-family: Copperplate Gothic;
+}
+table {
+    width:400px;
+    font-family: Copperplate Gothic;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+button{
+
+}

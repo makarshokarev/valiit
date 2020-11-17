@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input id="input" type="number"><br>
+    <input id="input1" type="number"><br>
+    <button id="btn">Just Do It!</button>
+    <table id="table"/>
+    <script>
+        let btn = document.getElementById("btn");
+        btn.onclick = function (){
+            let table = document.getElementById("table");
+            let input = document.getElementById("input");
+            let input1 = document.getElementById("input1");
+
+            for (let i = 1; i <= input.value;i++) {
+                let rowElement = document.createElement("tr");
+                for (let j = 1; j <= input1.value; j++) {
+                    let cellElement = document.createElement("td")
+                    rowElement.append(cellElement);
+                    cellElement.innerText = i*j;
+                }
+                table.append(rowElement)
+            }
+        }
+    </script>
+</body>
+</html>

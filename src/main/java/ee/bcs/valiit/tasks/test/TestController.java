@@ -10,10 +10,6 @@ import java.util.Random;
 @RestController
 public class TestController {
 
-//    @GetMapping(value = "/")
-//    public String getHelloWorld(){
-//        return "Hello World!";
-//    }
 //
 //    @GetMapping("hello")
 //    public String hello(){
@@ -78,11 +74,6 @@ public class TestController {
     }
 
 
-    @GetMapping("{exercise}")
-    public String fibonacci(@PathVariable("exercise") String ex,
-                            @RequestParam("nr") int y) {
-        return ex + ": " + fibonacci(y);
-    }
 
     public int fibonacci(int x) {
         int n0 = 0;
@@ -137,12 +128,6 @@ public class TestController {
                       @PathVariable("nr2") int y,
                       @PathVariable("nr3") int z) {
         return x + " " + y + " " + z;
-    }
-
-    @GetMapping("/")
-    public String ex2(@RequestParam("employeeId") int x,
-                      @RequestParam("somethingElse") String s){
-        return x + " " + s;
     }
 
     @GetMapping("company/{value}")
