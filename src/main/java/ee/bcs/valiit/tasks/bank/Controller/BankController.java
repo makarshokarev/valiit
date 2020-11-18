@@ -43,12 +43,14 @@ public class BankController {
 
     // depositMoney (accountNr, money)
     @PutMapping("account/deposit")
+    @CrossOrigin
     public void depositMoney(@RequestBody Account account) {
         accountService.depositMoney(account.getAccountNr(), account.getMoney());
         historyService.depositeHistory(account.getAccountNr(), account.getMoney());
     }
 
     // withdrawMoney (accountNr, money)
+    @CrossOrigin
     @PutMapping("account/withdraw")
     public void withdrawMoney(@RequestBody Account account) {
         accountService.withdrawMoney(account.getAccountNr(), account.getMoney());
@@ -56,6 +58,7 @@ public class BankController {
     }
 
     // transferMoney (fromAccount, toAccount, money)
+    @CrossOrigin
     @PutMapping("account/transfer")
     public void transferMoney(@RequestBody TransferBalance transfer) {
         accountService.transferMoney(transfer.getFromAccount(), transfer.getToAccount(), transfer.getMoney());
@@ -69,23 +72,27 @@ public class BankController {
     }
 
     @PostMapping("client/create")
+    @CrossOrigin
     public void createClient(@RequestBody CreateClient createClient) {
         clientService.createClient(createClient.getFirstName(), createClient.getLastName());
     }
 
     @PostMapping("account/create")
+    @CrossOrigin
     public void createAccount(@RequestBody CreateAccount createAccount) {
         accountService.createAccount(createAccount.getAccountNr(), createAccount.getClientId());
         historyService.createHistory(createAccount.getAccountNr());
     }
 
     @GetMapping("client")
+    @CrossOrigin
     public List<Client> getClient() {
         List<Client> result = clientService.getClient();
         return result;
     }
 
     @GetMapping("account")
+    @CrossOrigin
     public List<Account> getAccount() {
         List<Account> result = accountService.getAccount();
         return result;
@@ -97,6 +104,7 @@ public class BankController {
     }
 
     @GetMapping("history")
+    @CrossOrigin
     public List<History> getHistory(){
         List<History> result = historyService.getHistory();
         return result;

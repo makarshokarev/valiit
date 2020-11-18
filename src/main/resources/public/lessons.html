@@ -6,13 +6,40 @@
 </head>
 <body>
     <input id="input" type="number"><br>
-    <input id="input1" type="number"><br>
     <button id="btn">Just Do It!</button>
     <table id="table"/>
     <script>
+        let a = fetch("/test");
+        let b = console.log(a);
+        a.then(
+            function (result){
+                console.log(result);
+                result.json();
+                return result.text();
+            }
+        );
+        console.log(b);
+
         let btn = document.getElementById("btn");
         btn.onclick = function (){
+            let n0 = 0;
+            let n1 = 1;
+            let fib = 0;
             let table = document.getElementById("table");
+            let input = document.getElementById("input");
+            let rowElement = document.createElement("tr");
+            for (let i = 1; i<= input.value; i++){
+                fib = n0 + n1;
+                n0 = n1;
+                n1 = fib;
+                let cellElement = document.createElement("td");
+                rowElement.append(cellElement);
+                cellElement.innerText = fib;
+            }
+            table.append(rowElement);
+
+
+            /*let table = document.getElementById("table");
             let input = document.getElementById("input");
             let input1 = document.getElementById("input1");
 
@@ -24,7 +51,7 @@
                     cellElement.innerText = i*j;
                 }
                 table.append(rowElement)
-            }
+            }*/
         }
     </script>
 </body>

@@ -15,13 +15,38 @@
                     <th>Input your 'Client Id'</th>
                 </tr>
                 <tr>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
+                    <td><input id="account" type="text"></td>
+                    <td><input id="clientId" type="number"></td>
                 </tr>
                 <tr>
-                    <td colspan="3" align="center"><button onclick="alert('Account created.');">Create</button></td>
+                    <td colspan="3" align="center"><button id="btn">Create</button></td>
                 </tr>
             </table>
         </div>
+        <script>
+            let btn = document.getElementById("btn");
+            btn.onclick = function (){
+                let account = document.getElementById("account").value;
+                let clientId = document.getElementById("clientId").value;
+                let o = {
+                    "clientId" : clientId,
+                    "accountNr" : account
+                }
+
+                return fetch('http://localhost:8080/bank/account/create',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(o)
+                    }
+                ).then(
+                    function (){
+                        return alert("Account created!")
+                    }
+                );
+            }
+        </script>
     </body>
 </html>
