@@ -41,44 +41,50 @@ public class BankController {
     // depositMoney (accountNr, money)
     @PutMapping("account/deposit")
     @CrossOrigin
-    public void depositMoney(@RequestBody Account account) {
+    public PopUpWindow depositMoney(@RequestBody Account account) {
         accountService.depositMoney(account.getAccountNr(), account.getMoney());
         historyService.depositeHistory(account.getAccountNr(), account.getMoney());
+        return new PopUpWindow("Deposited " + account.getMoney() + "$ to account " + account.getAccountNr());
     }
 
     // withdrawMoney (accountNr, money)
     @CrossOrigin
     @PutMapping("account/withdraw")
-    public void withdrawMoney(@RequestBody Account account) {
+    public PopUpWindow withdrawMoney(@RequestBody Account account) {
         accountService.withdrawMoney(account.getAccountNr(), account.getMoney());
         historyService.withdrawHistory(account.getAccountNr(),account.getMoney());
+        return new PopUpWindow(account.getMoney() + "$ was withfrawn from " + account.getAccountNr());
     }
 
     // transferMoney (fromAccount, toAccount, money)
     @CrossOrigin
     @PutMapping("account/transfer")
-    public void transferMoney(@RequestBody TransferBalance transfer) {
+    public PopUpWindow transferMoney(@RequestBody TransferBalance transfer) {
         accountService.transferMoney(transfer.getFromAccount(), transfer.getToAccount(), transfer.getMoney());
         historyService.transferHistory(transfer.getFromAccount(), transfer.getToAccount(), transfer.getMoney());
+        return new PopUpWindow(transfer.getMoney() + "$ was transfered from " + transfer.getFromAccount() + " to " + transfer.getToAccount());
     }
 
     // getAccountBalance (accountNr)
     @GetMapping("account/balance")
+    @CrossOrigin
     public BigDecimal getBalance(@RequestBody Balance balance) {
         return accountService.balance(balance.getAccountNr());
     }
 
     @PostMapping("client/create")
     @CrossOrigin
-    public void createClient(@RequestBody CreateClient createClient) {
+    public PopUpWindow createClient(@RequestBody CreateClient createClient) {
         clientService.createClient(createClient.getFirstName(), createClient.getLastName());
+        return new PopUpWindow("Created client " + createClient.getFirstName() + " " + createClient.getLastName());
     }
 
     @PostMapping("account/create")
     @CrossOrigin
-    public void createAccount(@RequestBody CreateAccount createAccount) {
+    public PopUpWindow createAccount(@RequestBody CreateAccount createAccount) {
         accountService.createAccount(createAccount.getAccountNr(), createAccount.getClientId());
         historyService.createHistory(createAccount.getAccountNr());
+        return new PopUpWindow("Created account " + createAccount.getAccountNr() + " for client nr " + createAccount.getClientId());
     }
 
     @GetMapping("client")

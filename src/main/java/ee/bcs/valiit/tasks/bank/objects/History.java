@@ -3,10 +3,19 @@ package ee.bcs.valiit.tasks.bank.objects;
 import java.math.BigDecimal;
 
 public class History {
+    private BigDecimal id;
     private String fromAccountNr;
     private String toAccountNr;
     private String operation;
     private BigDecimal money;
+
+    public BigDecimal getId() {
+        return id;
+    }
+
+    public void setId(BigDecimal id) {
+        this.id = id;
+    }
 
     public String getFromAccountNr() {
         return fromAccountNr;
